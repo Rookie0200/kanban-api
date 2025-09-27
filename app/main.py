@@ -1,9 +1,10 @@
 from fastapi import FastAPI
+from app.routers import  users, projects, tasks, auth
+# from app.core.database import engine, Base
 
 app = FastAPI(
     title="Collaborative Kanban Board API",
     description="A professional Kanban board API with team collaboration features",
-    version="1.0.0",
 )
 
 
@@ -11,11 +12,10 @@ app = FastAPI(
 def read_root():
     return {
         "message": "Welcome to the Kanban Board API!",
-        "version": "1.0.0",
-        "docs": "/docs"
     }
 
 
-@app.get("/health")
-def health_check():
-    return {"status": "healthy"}
+app.include_router(users.router)
+app.include_router(auth.router)
+app.include_router(projects.router)
+app.include_router(tasks.router)
