@@ -4,7 +4,7 @@ from jose import jwt
 from app.core.config import settings
 from typing import Optional
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
 def hash_password(password: str) -> str:
     return pwd_context.hash(password)
@@ -19,4 +19,5 @@ def create_access_token(subject: str, expires_delta: Optional[timedelta] = None)
     return encoded
 
 def decode_access_token(token: str):
+    # print("controle inside decode_access_token with token", token)
     return jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])

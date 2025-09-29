@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+import uuid
 from typing import Optional
 from enum import Enum
 
@@ -13,13 +14,13 @@ class TaskBase(BaseModel):
     description: Optional[str] = None
 
 class TaskCreate(TaskBase):
-    project_id: int
-    assignee_id: Optional[int] = None
+    project_id: uuid.UUID 
+    assignee_id: Optional[uuid.UUID] = None
 
 class TaskRead(TaskBase):
-    id: int
-    project_id: int
-    assignee_id: Optional[int]
+    id: uuid.UUID 
+    project_id: uuid.UUID 
+    assignee_id: Optional[uuid.UUID]
     status: TaskStatus
 
     class Config:
