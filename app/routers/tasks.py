@@ -12,7 +12,7 @@ def create_task(task_in: TaskCreate, db: Session = Depends(get_db), current_user
     task = task_service.create_task(db, task_in=task_in)
     return task
 
-@router.patch("/{task_id}/status", response_model=TaskRead)
+@router.patch("/status/{task_id}/", response_model=TaskRead)
 def update_status(task_id: int, status: TaskStatus, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
     task = task_service.update_task_status(db, task_id=task_id, status=status)
     if not task:
